@@ -1,5 +1,5 @@
 
-# 🏦 Karakteristikat Kryesore të Banka Virtuale
+# 🏦 Karakteristikat Kryesore të Bankes Virtuale
 
 ## 🔹 Për Adminin
 - **Hyrje me kredencialet e veta:** `admin / admin123`
