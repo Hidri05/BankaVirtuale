@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 🏦 Karakteristikat Kryesore të Banka Virtuale
 
 ## 🔹 Për Adminin
@@ -64,3 +65,6 @@
 - Të dhënat ruhen vetëm në **localStorage**, prandaj pas fshirjes së cookies ose clear localStorage, të dhënat humbasin.
 - Interesi automatik në demo është **60 sekonda**.
 - Grafiku shfaq vetëm historikun e fundit të **365 ndryshimeve** (ose ditëve).
+=======
+# BankaVirtuale
+>>>>>>> c570efe1bcca79cf667547804c730732265b915c
