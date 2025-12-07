@@ -1,0 +1,79 @@
+:root{
+  --bg:#f4f8ff; --card:#ffffff; --accent:#0b63d8; --accent2:#2fc2ff; --muted:#637189; --danger:#d32f2f;
+  --radius:12px; --shadow:0 10px 30px rgba(9,30,66,0.06);
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0; font-family:Inter,system-ui,Arial; background:linear-gradient(180deg,var(--bg),#eef6ff 60%); color:#092033;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* container */
+.app{ max-width:1200px; margin:28px auto; padding:18px; }
+
+/* reusable */
+.card{ background:var(--card); border-radius:var(--radius); padding:16px; box-shadow:var(--shadow); }
+.small{ font-size:13px }
+.muted{ color:var(--muted) }
+
+/* AUTH */
+.auth-card{ max-width:460px; margin:40px auto; text-align:left; padding:24px; }
+.brand{ display:flex; gap:12px; align-items:center; margin-bottom:12px; }
+.logo{ width:56px; height:56px; border-radius:10px; background:linear-gradient(135deg,var(--accent),var(--accent2)); color:white; display:flex; align-items:center; justify-content:center; font-weight:700 }
+.title{ font-size:20px; color:var(--accent); font-weight:700 }
+
+/* form */
+.form-row{ margin-bottom:10px }
+label{ display:block; margin-bottom:6px; color:var(--muted); font-size:13px }
+input[type="text"],input[type="password"],input[type="number"],select{
+  width:100%; padding:10px 12px; border-radius:10px; border:1px solid #e6f4ff; background:#fbfeff; font-size:15px;
+}
+
+/* buttons */
+.actions{ display:flex; gap:10px; margin-top:12px }
+.btn{ padding:10px 14px; border-radius:10px; border:0; cursor:pointer; font-weight:600; background:transparent }
+.btn.primary{ background:linear-gradient(90deg,var(--accent),var(--accent2)); color:#fff; box-shadow:0 6px 18px rgba(11,99,216,0.12) }
+.btn.ghost{ background:transparent; color:var(--accent); border:1px solid rgba(11,99,216,0.12); padding:0 }
+.btn.danger{ background:var(--danger); color:#fff }
+
+/* topbar */
+/* fix overlap: ensure right container has gap and items align, file-btn limited */
+.topbar{ display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; padding:12px }
+.topbar .right{ display:flex; gap:10px; align-items:center; }
+
+/* file button styling — avoid overflow and z-index issues */
+.file-btn{ position:relative; overflow:hidden; display:inline-flex; align-items:center; gap:6px; padding:8px 10px; border-radius:8px; }
+.file-btn input[type="file"]{ position:absolute; left:0; top:0; opacity:0; width:100%; height:100%; cursor:pointer; z-index:2; }
+
+/* layout */
+.layout{ display:grid; grid-template-columns:300px 1fr; gap:18px; align-items:start }
+.sidebar .muted{ font-size:13px }
+
+/* table */
+.table-wrap{ border-radius:10px; overflow:hidden; border:1px solid #eef6ff; margin-bottom:12px }
+.table-row{ display:grid; grid-template-columns: 1fr 120px 140px; gap:12px; padding:12px; align-items:center; border-bottom:1px solid #f3f8ff }
+.table-row.head{ font-weight:700; color:var(--muted); background:linear-gradient(180deg,#fbfdff,#ffffff) }
+.table-row .owner{ font-weight:700; color:#07304b }
+
+/* responsive */
+@media(max-width:900px){
+  .layout{ grid-template-columns:1fr; }
+  .table-row{ grid-template-columns:1fr 120px }
+  .topbar .right{ flex-wrap:wrap; gap:8px; }
+}
+
+/* logs */
+.logs{ background:#f7fbff; padding:10px; border-radius:8px; max-height:240px; overflow:auto }
+
+/* modal */
+.modal{ position:fixed; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(6,12,22,0.45); z-index:1200 }
+.modal.hidden{ display:none }
+.modal-card{ width:420px; max-width:95%; padding:20px; }
+
+/* toasts */
+.toasts{ position:fixed; right:20px; bottom:20px; display:flex; flex-direction:column; gap:8px; z-index:2000 }
+.toast{ min-width:220px; padding:10px 14px; border-radius:8px; color:white; box-shadow:0 8px 20px rgba(0,0,0,0.12); display:flex; justify-content:space-between; align-items:center; }
+.toast.info{ background:linear-gradient(90deg,var(--accent),var(--accent2)); }
+.toast.success{ background:linear-gradient(90deg,#28a745,#67e3a2); }
+.toast.error{ background:linear-gradient(90deg,#d32f2f,#ff7a7a); }

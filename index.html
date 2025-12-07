@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="sq">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Banka VirtualeI</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="app">
+    <div id="authArea" class="card auth-card">
+      <div class="brand">
+        <div class="logo">BV</div>
+        <div>
+          <div class="title">Banka Virtuale</div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <label for="loginUser">Përdorues / Emri</label>
+        <input id="loginUser" type="text" placeholder="p.sh. Emri">
+      </div>
+      <div class="form-row">
+        <label for="loginPass">Fjalëkalim</label>
+        <input id="loginPass" type="password" placeholder="password">
+      </div>
+
+      <div class="actions">
+        <button id="btnLogin" class="btn primary">Hyr</button>
+        <button id="btnGuest" class="btn ghost">Hyr si Vizitor</button>
+      </div>
+
+      <p id="loginMessage" class="info"></p>
+    </div>
+
+    <!-- DASHBOARD -->
+    <div id="dashboard" class="dashboard" style="display:none;">
+      <header class="topbar card">
+        <div class="left">
+          <div class="app-title">Banka Virtuale <span id="userLabel" class="small muted"></span></div>
+        </div>
+
+        <div class="right">
+          <button id="themeToggle" class="btn ghost">Theme</button>
+          <button id="exportBtn" class="btn ghost">Eksporto</button>
+          <label class="btn ghost file-btn" title="Importo JSON">Importo
+            <input id="importFile" type="file" accept="application/json">
+          </label>
+          <button id="btnLogout" class="btn danger">Dil</button>
+        </div>
+      </header>
+
+      <div class="layout">
+        <!-- SIDEBAR -->
+        <aside class="sidebar card">
+          <div id="adminPanel">
+            <h3>Admin • Menaxhim</h3>
+            <label>Emri pronarit</label><input id="newOwner" placeholder="Emri">
+            <label>Fjalëkalim</label><input id="newPassword" placeholder="password">
+            <label>Tipi</label>
+            <select id="newType"><option value="Savings">Savings</option><option value="Checking">Checking</option></select>
+            <label>Balanca fillestare</label><input id="newBalance" type="number" value="15">
+            <div class="actions" style="margin-top:8px">
+              <button id="btnCreate" class="btn primary">Krijo</button>
+              <button id="btnSeed" class="btn ghost">Shto shembuj</button>
+            </div>
+
+            <hr/>
+            <h4>Fshi llogari</h4>
+            <select id="deleteSelect"></select>
+            <button id="btnDelete" class="btn">Fshij (konfirmim modal)</button>
+
+            <hr/>
+            <button id="btnApplyInterest" class="btn">Apliko 1% Interes (manual)</button>
+            <p class="small muted">Interes automatik fundi muaji (në demo: interval i shkurtër)</p>
+          </div>
+
+          <div id="userPanel" style="display:none">
+            <h3>Profili</h3>
+            <p class="small muted">Ndrysho fjalëkalimin</p>
+            <label>Fjalëkalimi aktual</label><input id="userOldPass" type="password">
+            <label>Fjalëkalimi i ri</label><input id="userNewPass" type="password">
+            <label>Konfirmo</label><input id="userConfirmPass" type="password">
+            <button id="userChangeBtn" class="btn">Ndrysho</button>
+            <hr/>
+            <h4>Eksporti i llogarisë</h4>
+            <button id="exportMyAccount" class="btn ghost">Eksporto llogarinë</button>
+          </div>
+        </aside>
+
+        <main class="main card">
+          <!-- Accounts table + stats -->
+          <section class="panel">
+            <div class="panel-header">
+              <h3>Lista e Llogarive</h3>
+              <div class="panel-actions">
+                <div>Totali: <strong id="totalBalance">0.00</strong> EUR</div>
+                <div class="small muted">Llogari: <span id="numAccounts">0</span></div>
+              </div>
+            </div>
+
+            <div id="accountsTable" class="table-wrap"></div>
+          </section>
+
+          <!-- Actions + Chart -->
+          <section class="panel">
+            <h3>Veprime</h3>
+            <label>Zgjidh llogarinë</label>
+            <select id="accountSelect"></select>
+
+            <div class="row two">
+              <div>
+                <label>Shuma (EUR)</label><input id="opAmount" type="number" placeholder="0.00">
+              </div>
+              <div>
+                <label>Transfer te</label><select id="transferTo"></select>
+              </div>
+            </div>
+
+            <div class="actions" style="margin-top:10px">
+              <button id="btnDeposit" class="btn primary">Depozito</button>
+              <button id="btnWithdraw" class="btn">Tërhiq</button>
+              <button id="btnTransfer" class="btn">Transfero</button>
+            </div>
+          </section>
+
+          <section class="panel">
+            <h3>Grafiku i Balancës</h3>
+            <canvas id="balanceChart" height="140"></canvas>
+          </section>
+
+          <section class="panel">
+            <h3>Logs</h3>
+            <div id="logs" class="logs"></div>
+          </section>
+        </main>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Modal -->
+  <div id="modal" class="modal hidden">
+    <div class="modal-card card">
+      <h3>Konfirmim</h3>
+      <p id="modalText">A jeni i sigurt?</p>
+      <div class="actions" style="justify-content:flex-end">
+        <button id="modalCancel" class="btn ghost">Anulo</button>
+        <button id="modalConfirm" class="btn danger">Po, fshij</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toasts" class="toasts"></div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
