@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # 🏦 Karakteristikat Kryesore të Banka Virtuale
 
 ## 🔹 Për Adminin
